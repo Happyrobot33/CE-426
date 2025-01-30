@@ -41,7 +41,7 @@ findHighBitASM
 
 	;use R3 as a bit counter, initialize to 255 to assume the high bit of the array is the MSB
 	LDR highestBit,=255
-	MOV arrIndex, R1 ;copy R1 to R2 to act as our active index into the array
+	MOV arrIndex, arrLen ;copy R1 to R2 to act as our active index into the array
 
 loop1
 	; Subtract 1 in order to get a proper index into the array
