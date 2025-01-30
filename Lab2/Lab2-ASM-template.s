@@ -12,38 +12,47 @@
 
 	AREA MySub, CODE, READONLY	
 
-	EXPORT findHighBitASM			
+	EXPORT findHighBitASM
+		
 
 findHighBitASM
 	; where do you expect the subroutine input parameters to be passed in?
 	; input parameters: R0: address of array, R1: number of elements in the array
-	
+	;Define the inputs
+	#define arrPtr R0
+	#define arrLen R1
+	#define returnLocation R0
+
 	;PUSH ...		; do you need to preserve registers that you may end up using ?
 
 	;use R3 as a bit counter, initialize to 255 to assume the high bit of the array is the MSB
-	LDR R3,=255
-	MOV R2, R1 ;copy R1 to R2 to act as our active index into the array
+	#define highestBit R3
+	LDR highestBit,=255
+	#define arrIndex R2
+	MOV arrIndex, R1 ;copy R1 to R2 to act as our active index into the array
 
 loop1
 	; Subtract 1 in order to get a proper index into the array
-	SUB R2, R2, #1
+	SUB arrIndex, arrIndex, #1
 	
-	LDR R5, [R0, R2, LSL #2]; ; Load the current int into R5, using R1 as a index into the array. Multiply R2 by 4 due to addressing being in bytes instead of 32 bit ranges
-	CLZ R4, R5 ;Count the leading zeros into the R4 register.
+	#define valueAtIndex R5
+	LDR valueAtIndex, [arrPtr, arrIndex, LSL #2]; ; Load the current int into valueAtIndex, using arrIndex as a index into the array. Multiply arrIndex by 4 due to addressing being in bytes instead of words
+	#define leadingZeros R4
+	CLZ leadingZeros, valueAtIndex ;Count the leading zeros into the leadingZeros register
 	;Result will be 32 if no bits are set, or 0 if bit 31 is set
-	;We can directly subtract this from R3 which holds the bit position R3 = R3 - R4
-	SUB R3, R3, R4
+	;We can directly subtract this from highestBit which holds the bit position
+	SUB highestBit, highestBit, leadingZeros
 	
 	;Check if we have 32, if so do loop again
-	CMP R4, #32 ;check if the zero count is 32
-	BEQ loop1 ;Jump to the start of the loopif R4 - 32 is 0
+	CMP leadingZeros, #32 ;check if the zero count is 32
+	BEQ loop1 ;Jump to the start of the loop if leadingZeros - 32 is 0
 	
 	; Exit if we got to here as we found the value we want
 	B done
 	
 done 
 	
-	MOV R0, R3 ;		; make sure that the final result is loaded in R0
+	MOV returnLocation, highestBit	; make sure that the final result is loaded in R0
 	;POP ...			; restore saved registers
 	BX LR			; return to the caller
 

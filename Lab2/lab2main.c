@@ -46,5 +46,5 @@ int main(void){
 
 uint32_t findHighBitC(uint32_t* array, uint32_t nelements)
 {
-
+	return 0;
 }
