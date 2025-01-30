@@ -292,7 +292,7 @@ Image Symbol Table
     [Anonymous Symbol]                       0x08000278   Section        0  system_stm32f10x.o(.text.SetSysClockTo72)
     [Anonymous Symbol]                       0x0800039c   Section        0  system_stm32f10x.o(.text.SystemInit)
     [Anonymous Symbol]                       0x08000404   Section        0  lab2main.o(.text.main)
-    MySub                                    0x08000460   Section       32  lab2-asm-template.o(MySub)
+    MySub                                    0x08000460   Section       36  lab2-asm-template.o(MySub)
     .bss                                     0x20000128   Section       96  libspace.o(.bss)
     Heap_Mem                                 0x20000188   Data         512  startup_stm32f10x_md.o(HEAP)
     HEAP                                     0x20000188   Section      512  startup_stm32f10x_md.o(HEAP)
@@ -457,8 +457,8 @@ Image Symbol Table
     SystemInit                               0x0800039d   Thumb Code   102  system_stm32f10x.o(.text.SystemInit)
     main                                     0x08000405   Thumb Code    90  lab2main.o(.text.main)
     findHighBitASM                           0x08000461   Thumb Code     0  lab2-asm-template.o(MySub)
-    Region$$Table$$Base                      0x08000480   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x080004a0   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Base                      0x08000484   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x080004a4   Number         0  anon$$obj.o(Region$$Table)
     array0                                   0x20000000   Data          32  lab2main.o(.data.array0)
     array1                                   0x20000020   Data          32  lab2main.o(.data.array1)
     array2                                   0x20000040   Data          32  lab2main.o(.data.array2)
@@ -481,9 +481,9 @@ Memory Map of the image
 
   Image Entry point : 0x080001b5
 
-  Load Region LR_1 (Base: 0x08000000, Size: 0x000005c8, Max: 0xffffffff, ABSOLUTE)
+  Load Region LR_1 (Base: 0x08000000, Size: 0x000005cc, Max: 0xffffffff, ABSOLUTE)
 
-    Execution Region ER_RO (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x000004a0, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RO (Exec base: 0x08000000, Load base: 0x08000000, Size: 0x000004a4, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -555,28 +555,28 @@ Memory Map of the image
     0x08000402   0x08000402   0x00000002   PAD
     0x08000404   0x08000404   0x0000005a   Code   RO            2    .text.main          lab2main.o
     0x0800045e   0x0800045e   0x00000002   PAD
-    0x08000460   0x08000460   0x00000020   Code   RO           42    MySub               lab2-asm-template.o
-    0x08000480   0x08000480   0x00000020   Data   RO          222    Region$$Table       anon$$obj.o
+    0x08000460   0x08000460   0x00000024   Code   RO           42    MySub               lab2-asm-template.o
+    0x08000484   0x08000484   0x00000020   Data   RO          222    Region$$Table       anon$$obj.o
 
 
-    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x080004a0, Size: 0x00000128, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_RW (Exec base: 0x20000000, Load base: 0x080004a4, Size: 0x00000128, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x080004a0   0x00000020   Data   RW            6    .data.array0        lab2main.o
-    0x20000020   0x080004c0   0x00000020   Data   RW            7    .data.array1        lab2main.o
-    0x20000040   0x080004e0   0x00000020   Data   RW            8    .data.array2        lab2main.o
-    0x20000060   0x08000500   0x00000020   Data   RW            9    .data.array3        lab2main.o
-    0x20000080   0x08000520   0x00000020   Data   RW           10    .data.array4        lab2main.o
-    0x200000a0   0x08000540   0x00000020   Data   RW           11    .data.array5        lab2main.o
-    0x200000c0   0x08000560   0x00000020   Data   RW           12    .data.array6        lab2main.o
-    0x200000e0   0x08000580   0x00000020   Data   RW           13    .data.array7        lab2main.o
-    0x20000100   0x080005a0   0x00000020   Data   RW           14    .data.arrays        lab2main.o
-    0x20000120   0x080005c0   0x00000004   Data   RW           15    .data.narrays       lab2main.o
-    0x20000124   0x080005c4   0x00000004   Data   RW           16    .data.nelements     lab2main.o
+    0x20000000   0x080004a4   0x00000020   Data   RW            6    .data.array0        lab2main.o
+    0x20000020   0x080004c4   0x00000020   Data   RW            7    .data.array1        lab2main.o
+    0x20000040   0x080004e4   0x00000020   Data   RW            8    .data.array2        lab2main.o
+    0x20000060   0x08000504   0x00000020   Data   RW            9    .data.array3        lab2main.o
+    0x20000080   0x08000524   0x00000020   Data   RW           10    .data.array4        lab2main.o
+    0x200000a0   0x08000544   0x00000020   Data   RW           11    .data.array5        lab2main.o
+    0x200000c0   0x08000564   0x00000020   Data   RW           12    .data.array6        lab2main.o
+    0x200000e0   0x08000584   0x00000020   Data   RW           13    .data.array7        lab2main.o
+    0x20000100   0x080005a4   0x00000020   Data   RW           14    .data.arrays        lab2main.o
+    0x20000120   0x080005c4   0x00000004   Data   RW           15    .data.narrays       lab2main.o
+    0x20000124   0x080005c8   0x00000004   Data   RW           16    .data.nelements     lab2main.o
 
 
-    Execution Region ER_ZI (Exec base: 0x20000128, Load base: 0x080005c8, Size: 0x00000660, Max: 0xffffffff, ABSOLUTE)
+    Execution Region ER_ZI (Exec base: 0x20000128, Load base: 0x080005cc, Size: 0x00000660, Max: 0xffffffff, ABSOLUTE)
 
     Exec Addr    Load Addr    Size         Type   Attr      Idx    E Section Name        Object
 
@@ -592,13 +592,13 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-        32          0          0          0          0        256   lab2-asm-template.o
+        36          0          0          0          0        256   lab2-asm-template.o
         90          0          0        296          0       1165   lab2main.o
         64         26        236          0       1536        744   startup_stm32f10x_md.o
        400          0          0          0          0       2798   system_stm32f10x.o
 
     ----------------------------------------------------------------------
-       592         26        268        296       1536       4963   Object Totals
+       596         26        268        296       1536       4963   Object Totals
          0          0         32          0          0          0   (incl. Generated)
          6          0          0          0          0          0   (incl. Padding)
 
@@ -647,15 +647,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-       916         42        268        296       1632       5487   Grand Totals
-       916         42        268        296       1632       5487   ELF Image Totals
-       916         42        268        296          0          0   ROM Totals
+       920         42        268        296       1632       5487   Grand Totals
+       920         42        268        296       1632       5487   ELF Image Totals
+       920         42        268        296          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                 1184 (   1.16kB)
+    Total RO  Size (Code + RO Data)                 1188 (   1.16kB)
     Total RW  Size (RW Data + ZI Data)              1928 (   1.88kB)
-    Total ROM Size (Code + RO Data + RW Data)       1480 (   1.45kB)
+    Total ROM Size (Code + RO Data + RW Data)       1484 (   1.45kB)
 
 ==============================================================================
 
