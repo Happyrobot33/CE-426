@@ -35,12 +35,13 @@ int main(void){
 	uint8_t i;
 	volatile uint32_t positionASM;
 	volatile uint32_t positionC;
-	for (i = 0; i<narrays; i++)
+	
+	//iterate through each of the test arrays
+	for (i = 0; i < narrays; i++)
 	{
 		positionASM = findHighBitASM(arrays[i], nelements);
 		positionC = findHighBitC(arrays[i], nelements);
 	}
 	
-	while(1){positionC++;} // endless loop to keep micro from crashing
-						  // position++ keeps position in scope for easier debugging
+	while(1){} // endless loop to keep micro from crashing
 }
