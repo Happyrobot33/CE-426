@@ -13,13 +13,15 @@ uint32_t findHighBitC(uint32_t* array, uint32_t nelements)
 		{
 			continue;
 		}
-		for (j = 31; j >= 0; j--) { 
-            if (curr & (1U << j)) //bitwise AND between curr and bitmask (non zero ouput means there is a 1 in position j)
-						{
-                return pos - ((7-i)*32); //if we skipped one, we need to take care of offset
-            }
-            pos--;
-        }
-    }
-	return 0;
+		
+		for (j = 31; j >= 0; j--)
+		{ 
+			if (curr & (1U << j)) //bitwise AND between curr and bitmask (non zero ouput means there is a 1 in position j)
+			{
+				return pos - ((7-i)*32); //if we skipped one, we need to take care of offset
+			}
+			pos--;
+		}
 	}
+	return 0;
+}
