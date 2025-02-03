@@ -33,13 +33,14 @@ uint32_t findHighBitC(uint32_t*, uint32_t);
 
 int main(void){
 	uint8_t i;
-	volatile uint32_t position;
+	volatile uint32_t positionASM;
+	volatile uint32_t positionC;
 	for (i = 0; i<narrays; i++)
 	{
-		position = findHighBitASM(arrays[i], nelements);
-		position = findHighBitC(arrays[i], nelements);
+		positionASM = findHighBitASM(arrays[i], nelements);
+		positionC = findHighBitC(arrays[i], nelements);
 	}
 	
-	while(1){position++;} // endless loop to keep micro from crashing
+	while(1){positionC++;} // endless loop to keep micro from crashing
 						  // position++ keeps position in scope for easier debugging
 }
