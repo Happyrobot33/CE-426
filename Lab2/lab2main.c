@@ -37,14 +37,9 @@ int main(void){
 	for (i = 0; i<narrays; i++)
 	{
 		position = findHighBitASM(arrays[i], nelements);
-		//position = findHighBitC(arrays[i], nelements);
+		position = findHighBitC(arrays[i], nelements);
 	}
 	
 	while(1){position++;} // endless loop to keep micro from crashing
 						  // position++ keeps position in scope for easier debugging
-}
-
-uint32_t findHighBitC(uint32_t* array, uint32_t nelements)
-{
-	return 0;
 }
