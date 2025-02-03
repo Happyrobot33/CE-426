@@ -49,10 +49,10 @@ int main()
 			if (intKey == '0')
 			{
 				//Override mode
+				delay(1000);
 				SetTrafficLight(RED);
 				delay(1000);
 				LED_Off(RED);
-				delay(1000);
 			}
 			else
 			{

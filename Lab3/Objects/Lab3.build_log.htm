@@ -27,54 +27,7 @@ Project File Date:  02/03/2025
 <h2>Output:</h2>
 *** Using Compiler 'V6.19', folder: 'C:\Keil_v5\ARM\ARMCLANG\Bin'
 Build target 'Target 1'
-main_sample.c(2): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-   Sample program 2 <96> Hello World for Embedded Systems
-                    ^
-main_sample.c(7): warning: In file included from...
-C:/temp/Arm/Packs/Keil/STM32F1xx_DFP/2.2.0/Device/Include\stm32f10x.h(18): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *              - To use or not the peripheral<92>s drivers in application code(i.e. 
-                                               ^
-C:/temp/Arm/Packs/Keil/STM32F1xx_DFP/2.2.0/Device/Include\stm32f10x.h(19): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *                code will be based on direct access to peripheral<92>s registers 
-                                                                    ^
-C:/temp/Arm/Packs/Keil/STM32F1xx_DFP/2.2.0/Device/Include\stm32f10x.h(26): warning: invalid UTF-8 in comment [-Winvalid-utf8]
-  *           - Macros to access peripheral<92>s registers hardware
-                                           ^
-main_sample.c(8): warning: In file included from...
-C:/temp/Arm/Packs/Keil/STM32F1xx_DFP/2.2.0/RTE_Driver\GPIO_STM32F10x.h(230): warning: implicit conversion loses integer precision: 'volatile uint32_t' (aka 'volatile unsigned int') to 'uint16_t' (aka 'unsigned short') [-Wimplicit-int-conversion]
-  return (GPIOx->IDR);
-  ~~~~~~  ~~~~~~~^~~
-main_sample.c(27): warning: a function declaration without a prototype is deprecated in all versions of C [-Wstrict-prototypes]
-int main()
-        ^
-         void
-main_sample.c(43): warning: passing 'char[10]' to parameter of type 'uint8_t *' (aka 'unsigned char *') converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
-                SendText("Welcome!\n");
-                         ^~~~~~~~~~~~
-main_sample.c(23): note: passing argument to parameter 'txt' here
-void SendText(uint8_t *txt);
-                       ^
-main_sample.c(84): warning: implicit conversion loses integer precision: 'int16_t' (aka 'short') to 'uint8_t' (aka 'unsigned char') [-Wimplicit-int-conversion]
-        intKey = (int16_t) (USART1->DR & 0x1FF);
-               ~ ^~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-main_sample.c(83): warning: no previous prototype for function 'USART1_IRQHandler' [-Wmissing-prototypes]
-void USART1_IRQHandler (void) {
-     ^
-main_sample.c(83): note: declare 'static' if the function is not intended to be used outside of this translation unit
-void USART1_IRQHandler (void) {
-^
-static 
-main_sample.c(25): warning: no previous extern declaration for non-static variable 'intKey' [-Wmissing-variable-declarations]
-volatile uint8_t intKey;
-                 ^
-main_sample.c(25): note: declare 'static' if the variable is not intended to be used outside of this translation unit
-volatile uint8_t intKey;
-         ^
-10 warnings generated.
-compiling main_sample.c...
-linking...
-Program Size: Code=2640 RO-data=328 RW-data=0 ZI-data=1640  
-".\Objects\Lab3.axf" - 0 Error(s), 10 Warning(s).
+".\Objects\Lab3.axf" - 0 Error(s), 0 Warning(s).
 
 <h2>Software Packages used:</h2>
 

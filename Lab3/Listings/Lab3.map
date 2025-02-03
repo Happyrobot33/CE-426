@@ -11,17 +11,17 @@ Section Cross References
     main_sample.o(.text.main) refers to main_sample.o(.rodata.str1.1) for .L.str
     main_sample.o(.text.main) refers to main_sample.o(.text.SendText) for SendText
     main_sample.o(.text.main) refers to main_sample.o(.bss.intKey) for intKey
-    main_sample.o(.text.main) refers to main_sample.o(.text.SetTrafficLight) for SetTrafficLight
     main_sample.o(.text.main) refers to main_sample.o(.text.delay) for delay
+    main_sample.o(.text.main) refers to main_sample.o(.text.SetTrafficLight) for SetTrafficLight
     main_sample.o(.text.main) refers to led_mcbstm32e.o(.text.LED_Off) for LED_Off
     main_sample.o(.ARM.exidx.text.main) refers to main_sample.o(.text.main) for [Anonymous Symbol]
     main_sample.o(.ARM.exidx.text.__NVIC_SetPriority) refers to main_sample.o(.text.__NVIC_SetPriority) for [Anonymous Symbol]
     main_sample.o(.text.SendText) refers to uart.o(.text.SendChar) for SendChar
     main_sample.o(.ARM.exidx.text.SendText) refers to main_sample.o(.text.SendText) for [Anonymous Symbol]
+    main_sample.o(.ARM.exidx.text.delay) refers to main_sample.o(.text.delay) for [Anonymous Symbol]
     main_sample.o(.text.SetTrafficLight) refers to led_mcbstm32e.o(.text.LED_Off) for LED_Off
     main_sample.o(.text.SetTrafficLight) refers to led_mcbstm32e.o(.text.LED_On) for LED_On
     main_sample.o(.ARM.exidx.text.SetTrafficLight) refers to main_sample.o(.text.SetTrafficLight) for [Anonymous Symbol]
-    main_sample.o(.ARM.exidx.text.delay) refers to main_sample.o(.text.delay) for [Anonymous Symbol]
     main_sample.o(.text.USART1_IRQHandler) refers to main_sample.o(.bss.intKey) for intKey
     main_sample.o(.ARM.exidx.text.USART1_IRQHandler) refers to main_sample.o(.text.USART1_IRQHandler) for [Anonymous Symbol]
     uart.o(.ARM.exidx.text.USART1_Init) refers to uart.o(.text.USART1_Init) for [Anonymous Symbol]
@@ -186,8 +186,8 @@ Removing Unused input sections from the image.
     Removing main_sample.o(.ARM.exidx.text.main), (8 bytes).
     Removing main_sample.o(.ARM.exidx.text.__NVIC_SetPriority), (8 bytes).
     Removing main_sample.o(.ARM.exidx.text.SendText), (8 bytes).
-    Removing main_sample.o(.ARM.exidx.text.SetTrafficLight), (8 bytes).
     Removing main_sample.o(.ARM.exidx.text.delay), (8 bytes).
+    Removing main_sample.o(.ARM.exidx.text.SetTrafficLight), (8 bytes).
     Removing main_sample.o(.ARM.exidx.text.USART1_IRQHandler), (8 bytes).
     Removing main_sample.o(.ARM.use_no_argv), (4 bytes).
     Removing uart.o(.text), (0 bytes).
@@ -633,7 +633,7 @@ Memory Map of the image
     0x0800077c   0x0800077c   0x00000008   Code   RO           85    .text.SetSysClock   system_stm32f10x.o
     0x08000784   0x08000784   0x00000122   Code   RO           89    .text.SetSysClockTo72  system_stm32f10x.o
     0x080008a6   0x080008a6   0x00000002   PAD
-    0x080008a8   0x080008a8   0x00000022   Code   RO            8    .text.SetTrafficLight  main_sample.o
+    0x080008a8   0x080008a8   0x00000022   Code   RO           10    .text.SetTrafficLight  main_sample.o
     0x080008ca   0x080008ca   0x00000002   PAD
     0x080008cc   0x080008cc   0x00000066   Code   RO           83    .text.SystemInit    system_stm32f10x.o
     0x08000932   0x08000932   0x00000002   PAD
@@ -643,7 +643,7 @@ Memory Map of the image
     0x080009fa   0x080009fa   0x00000002   PAD
     0x080009fc   0x080009fc   0x00000042   Code   RO            4    .text.__NVIC_SetPriority  main_sample.o
     0x08000a3e   0x08000a3e   0x00000002   PAD
-    0x08000a40   0x08000a40   0x0000003e   Code   RO           10    .text.delay         main_sample.o
+    0x08000a40   0x08000a40   0x0000003e   Code   RO            8    .text.delay         main_sample.o
     0x08000a7e   0x08000a7e   0x00000002   PAD
     0x08000a80   0x08000a80   0x000000bc   Code   RO            2    .text.main          main_sample.o
     0x08000b3c   0x08000b3c   0x00000040   Data   RO           51    .rodata.Pin_LED     led_mcbstm32e.o
