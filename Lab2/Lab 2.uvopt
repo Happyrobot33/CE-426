@@ -159,9 +159,25 @@
         <Bp>
           <Number>0</Number>
           <Type>0</Type>
-          <LineNumber>40</LineNumber>
+          <LineNumber>43</LineNumber>
           <EnabledFlag>1</EnabledFlag>
-          <Address>134218962</Address>
+          <Address>0</Address>
+          <ByteObject>0</ByteObject>
+          <HtxType>0</HtxType>
+          <ManyObjects>0</ManyObjects>
+          <SizeOfObject>0</SizeOfObject>
+          <BreakByAccess>0</BreakByAccess>
+          <BreakIfRCount>0</BreakIfRCount>
+          <Filename>.\lab2main.c</Filename>
+          <ExecCommand></ExecCommand>
+          <Expression></Expression>
+        </Bp>
+        <Bp>
+          <Number>1</Number>
+          <Type>0</Type>
+          <LineNumber>46</LineNumber>
+          <EnabledFlag>1</EnabledFlag>
+          <Address>134218836</Address>
           <ByteObject>0</ByteObject>
           <HtxType>0</HtxType>
           <ManyObjects>0</ManyObjects>
@@ -170,7 +186,7 @@
           <BreakIfRCount>1</BreakIfRCount>
           <Filename>.\lab2main.c</Filename>
           <ExecCommand></ExecCommand>
-          <Expression>\\Lab_2\lab2main.c\40</Expression>
+          <Expression>\\Lab_2\lab2main.c\46</Expression>
         </Bp>
       </Breakpoint>
       <WatchWindow1>
