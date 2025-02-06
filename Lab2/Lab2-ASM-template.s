@@ -1,15 +1,3 @@
-;.............................................................................
-; findHighBitASM - assembly implementation of the find high bit function
-;
-; ... provide complete documentation
-; ... description - what the subroutine does
-; ... what are the input and output parameters and how/where they are passed
-; ... briefly describe how the algorithm works
-; ... 
-; ... write names of the group members 
-; ... include last modification date
-;.............................................................................
-
 	AREA MySub, CODE, READONLY	
 
 	EXPORT findHighBitASM
