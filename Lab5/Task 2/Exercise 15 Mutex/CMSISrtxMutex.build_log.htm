@@ -101,19 +101,19 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:CORE@5.6.0
 
    * Component: ARM::CMSIS:RTOS:Keil RTX@4.82.0
-      Include file:  CMSIS/RTOS/RTX/UserCodeTemplates/osObjects.h
-      Source file:   CMSIS/RTOS/RTX/UserCodeTemplates/main.c
       Include file:  CMSIS/RTOS/RTX/INC/cmsis_os.h
-      Source file:   CMSIS/RTOS/RTX/Templates/RTX_Conf_CM.c
       Source file:   CMSIS/RTOS/RTX/SRC/ARM/SVC_Table.s
-      Library file:  CMSIS/RTOS/RTX/LIB/ARM/RTX_CM3.lib
+      Source file:   CMSIS/RTOS/RTX/UserCodeTemplates/MailQueue.c
+      Include file:  CMSIS/RTOS/RTX/UserCodeTemplates/osObjects.h
       Source file:   CMSIS/RTOS/RTX/UserCodeTemplates/MemPool.c
-      Source file:   CMSIS/RTOS/RTX/UserCodeTemplates/Timer.c
       Source file:   CMSIS/RTOS/RTX/UserCodeTemplates/Thread.c
       Source file:   CMSIS/RTOS/RTX/UserCodeTemplates/Semaphore.c
-      Source file:   CMSIS/RTOS/RTX/UserCodeTemplates/MailQueue.c
-      Source file:   CMSIS/RTOS/RTX/UserCodeTemplates/Mutex.c
+      Library file:  CMSIS/RTOS/RTX/LIB/ARM/RTX_CM3.lib
+      Source file:   CMSIS/RTOS/RTX/UserCodeTemplates/main.c
       Source file:   CMSIS/RTOS/RTX/UserCodeTemplates/MsgQueue.c
+      Source file:   CMSIS/RTOS/RTX/UserCodeTemplates/Mutex.c
+      Source file:   CMSIS/RTOS/RTX/Templates/RTX_Conf_CM.c
+      Source file:   CMSIS/RTOS/RTX/UserCodeTemplates/Timer.c
 
    * Component: Keil::Board Support&MCBSTM32E:LED@2.0.0
       Source file:   Boards/Keil/MCBSTM32E/Common/LED_MCBSTM32E.c
@@ -123,11 +123,11 @@ Package Vendor: Keil
       Include file:  RTE_Driver/GPIO_STM32F10x.h
 
    * Component: Keil::Device:Startup@1.0.0
-      Source file:   Device/Source/ARM/STM32F1xx_OPT.s
-      Include file:  RTE_Driver/Config/RTE_Device.h
-      Source file:   Device/Source/system_stm32f10x.c
       Source file:   Device/Source/ARM/startup_stm32f10x_md.s
-Build Time Elapsed:  00:00:00
+      Include file:  RTE_Driver/Config/RTE_Device.h
+      Source file:   Device/Source/ARM/STM32F1xx_OPT.s
+      Source file:   Device/Source/system_stm32f10x.c
+Build Time Elapsed:  00:00:02
 </pre>
 </body>
 </html>
