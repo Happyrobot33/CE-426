@@ -1,9 +1,3 @@
-/*----------------------------------------------------------------------------
-	
-	Designers Guide to the Cortex-M Family
-	CMSIS RTOS Mutex Example
-
-*----------------------------------------------------------------------------*/
 #include "stm32f10x.h"
 #include "cmsis_os.h"
 #include "uart.h"
@@ -84,8 +78,6 @@ int main (void)
 	
 	//initialize the UART
 	USART1_Init();
-	//configure USART interrupt ... so we can read user inputs using interrupt
-	//Configure and enable USART1 interrupt
 	NVIC->ICPR[USART1_IRQn/32] = 1UL << (USART1_IRQn%32); //clear any previous pending interrupt flag
 	NVIC->IP[USART1_IRQn] = 0x80; // NVIC_SetPriority(USART1_IRQn, 0x80); //set priority to 0x80
 	NVIC->ISER[USART1_IRQn/32] = 1UL << (USART1_IRQn%32); //set interrupt enable bit
