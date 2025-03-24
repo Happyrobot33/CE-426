@@ -29,8 +29,8 @@ osThreadId u2Transmit;
 osThreadId u2Receive;
 
 // other definitions
-void SendText(uint8_t *txt, int USART, osMutexId mutex);
-void ClearScreen(int uart, osMutexId mutex);
+void SendText(char *txt, int USART);
+void ClearScreen(int uart);
 
 // Pre Defined Message function definitions
 void pre_defined_message1(void const *argument);
@@ -48,11 +48,10 @@ typedef struct {
 } mail_format;
 
 //mailbox definition with 16 slots
-osMailQDef(mail_box, 16, mail_format);
-osMailQId mail_box;
-
-mail_format *mail_TX;
-mail_format *mail_RX;
+osMailQDef(uart1_mail_box, 16, mail_format);
+osMailQId uart1_mail_box;
+osMailQDef(uart2_mail_box, 16, mail_format);
+osMailQId uart2_mail_box;
 
 //user message creation with 128 characters
 char msg1[128];
@@ -81,21 +80,26 @@ osMutexDef(uart2_mutex);
 // pre defined message function uart 1
 void pre_defined_message1(void const *argument) {
 	// send predefined messages
-	SendText("[SYSTEM] Hello User 1\n",uart1, uart1_mutex);
+	osMutexWait(uart1_mutex, osWaitForever);
+	SendText("[SYSTEM] Hello User 1\n",uart1);
+	osMutexRelease(uart1_mutex);
 }
 
 // pre defined message function uart 2
 void pre_defined_message2(void const *argument) {
 	// send predefined messages
-	SendText("[SYSTEM] Hello User 2\n",uart2, uart2_mutex);
+	osMutexWait(uart2_mutex, osWaitForever);
+	SendText("[SYSTEM] Hello User 2\n",uart2);
+	osMutexRelease(uart2_mutex);
 }
 
 void user1_transmit_thread(void const *argument) {
 	for(;;) {
+		mail_format *mail_TX;
 		osSignalWait(0x01, osWaitForever); //wait for signal
 		uart1_msg = osMessageGet(uart1_message_queue, osWaitForever); //grab message
 		if (uart1_msg.value.v == 0xD) { //if ENTER key, send mail
-			mail_TX = (mail_format*)osMailAlloc(mail_box, osWaitForever);
+			mail_TX = (mail_format*)osMailAlloc(uart2_mail_box, osWaitForever);
 			int i;
 			for (i = 0; i < MAXMESSAGELENGTH; i++) {
 				mail_TX -> message[i] = msg1[i]; 
@@ -107,7 +111,7 @@ void user1_transmit_thread(void const *argument) {
 			//release the uart mutex now that we are done with it (user pressed enter)
 			osMutexRelease(uart1_mutex);
 			msg1_index = 0; //reset message index so we insert new mail at correct spot
-			osMailPut(mail_box, mail_TX); //send mail
+			osMailPut(uart2_mail_box, mail_TX); //send mail
 			osSignalSet(u2Receive, 0x01); //set signal to user2 recieve to let thread know we have incoming mail
 		} else { //if not ENTER
 			if (msg1_index == 0) // if user starts typing
@@ -125,7 +129,7 @@ void user1_transmit_thread(void const *argument) {
 				SendChar('\n',uart1);
 		
 				//send mail
-				mail_TX = (mail_format*)osMailAlloc(mail_box, osWaitForever);
+				mail_TX = (mail_format*)osMailAlloc(uart2_mail_box, osWaitForever);
 				for (i = 0; i < MAXMESSAGELENGTH; i++) {
 					mail_TX -> message[i] = msg1[i];
 				}
@@ -135,7 +139,7 @@ void user1_transmit_thread(void const *argument) {
 				}
 				osMutexRelease(uart1_mutex); //release the uart mutex now that we are done with it (message too long)
 				msg1_index = 0; //reset message index so we insert new mail at correct spot
-				osMailPut(mail_box, mail_TX); //send mail
+				osMailPut(uart2_mail_box, mail_TX); //send mail
 				osSignalSet(u2Receive, 0x01); //set signal to user2 recieve to let thread know we have incoming mail
 			} else {
 				SendChar(uart1_msg.value.v, uart1);
@@ -148,16 +152,14 @@ void user1_transmit_thread(void const *argument) {
 
 void user1_receive_thread(void const *argument) {
 	for(;;) {
+		mail_format *mail_RX;
 		osSignalWait(0x01, osWaitForever); //wait for signal
-		osEvent evt = osMailGet(mail_box, osWaitForever); //get latest mail
+		osEvent evt = osMailGet(uart1_mail_box, osWaitForever); //get latest mail
 		if (evt.status == osEventMail){ //if actual mail
 			osMutexWait(uart1_mutex, osWaitForever);
 			mail_RX = (mail_format*)evt.value.p;
-			char usrStr[9] = "[User 2] "; //start off message with identifier
+			SendText("[User 2] ", uart1); //start off message with identifier
 			int i;
-			for (i = 0; i < 9; i++) {
-				SendChar(usrStr[i],uart1);
-			}
 			for (i = 0; i < MAXMESSAGELENGTH; i++) {
 				if (mail_RX->message[i] == '\0') {
 					SendChar('\n',uart1);
@@ -167,17 +169,18 @@ void user1_receive_thread(void const *argument) {
 				}
 			}
 			osMutexRelease(uart1_mutex);
-			osMailFree(mail_box, mail_RX); //remove mail from mail queue
+			osMailFree(uart1_mail_box, mail_RX); //remove mail from mail queue
 		}
 	}
 }
 
 void user2_transmit_thread(void const *argument) {
 	for(;;) {
+		mail_format *mail_TX;
 		osSignalWait(0x01, osWaitForever); //wait for signal
 		uart2_msg = osMessageGet(uart2_message_queue, osWaitForever); //grab message
 		if (uart2_msg.value.v == 0xD) { //if character is ENTER key, send mail
-			mail_TX = (mail_format*)osMailAlloc(mail_box, osWaitForever); 
+			mail_TX = (mail_format*)osMailAlloc(uart1_mail_box, osWaitForever); 
 			int i;
 			for (i = 0; i < MAXMESSAGELENGTH; i++) {
 				mail_TX -> message[i] = msg2[i];
@@ -188,7 +191,7 @@ void user2_transmit_thread(void const *argument) {
 			}
 			osMutexRelease(uart2_mutex); //release the uart mutex now that we are done with it (user pressed enter)
 			msg2_index = 0; //reset message index so we insert new mail at correct spot
-			osMailPut(mail_box, mail_TX); //send mail
+			osMailPut(uart1_mail_box, mail_TX); //send mail
 			osSignalSet(u1Receive, 0x01); //set signal to user1recieve to let thread know we have incoming mail
 		} else {
 			if (msg2_index == 0) // if user starts typing
@@ -205,7 +208,7 @@ void user2_transmit_thread(void const *argument) {
 				}
 				SendChar('\n',uart2);
 				//send mail
-				mail_TX = (mail_format*)osMailAlloc(mail_box, osWaitForever);
+				mail_TX = (mail_format*)osMailAlloc(uart1_mail_box, osWaitForever);
 				for (i = 0; i < MAXMESSAGELENGTH; i++) {
 					mail_TX -> message[i] = msg2[i]; 
 				}
@@ -215,7 +218,7 @@ void user2_transmit_thread(void const *argument) {
 				}
 				osMutexRelease(uart2_mutex); //release the uart mutex now that we are done with it (message too long)
 				msg2_index = 0; //reset message index so we insert new mail at correct spot
-				osMailPut(mail_box, mail_TX); //send mail
+				osMailPut(uart1_mail_box, mail_TX); //send mail
 				osSignalSet(u1Receive, 0x01); //set signal to user2 recieve to let thread know we have incoming mail
 			} else {
 				SendChar(uart2_msg.value.v, uart2);
@@ -228,16 +231,14 @@ void user2_transmit_thread(void const *argument) {
 
 void user2_receive_thread(void const *argument) {
 	for(;;) {
+		mail_format *mail_RX;
 		osSignalWait(0x01, osWaitForever); //wait for signal
-		osEvent evt = osMailGet(mail_box, osWaitForever); //get latest mail
+		osEvent evt = osMailGet(uart2_mail_box, osWaitForever); //get latest mail
 		if (evt.status == osEventMail){ //if actual mail
 			osMutexWait(uart2_mutex, osWaitForever);
 			mail_RX = (mail_format*)evt.value.p;
-			char usrStr[9] = "[User 1] "; //start off message with identifier
+			SendText("[User 1] ", uart2); //start off message with identifier
 			int i;
-			for (i = 0; i < 9; i++) {
-				SendChar(usrStr[i],uart2);
-			}			
 			for (i = 0; i < MAXMESSAGELENGTH; i++) {
 				if (mail_RX->message[i] == '\0') {
 					SendChar('\n',uart2); //if end of message, print newline char
@@ -247,7 +248,7 @@ void user2_receive_thread(void const *argument) {
 				}
 			}
 			osMutexRelease(uart2_mutex);
-			osMailFree(mail_box, mail_RX); //remove mail from mail queue
+			osMailFree(uart2_mail_box, mail_RX); //remove mail from mail queue
 		}
 	}
 }
@@ -274,7 +275,8 @@ int main(void) {
 	uart2_mutex = osMutexCreate(osMutex(uart2_mutex));
 	
 	//mail box and message queue creation
-	mail_box = osMailCreate(osMailQ(mail_box), NULL);
+	uart1_mail_box = osMailCreate(osMailQ(uart1_mail_box), NULL);
+	uart2_mail_box = osMailCreate(osMailQ(uart2_mail_box), NULL);
 	uart1_message_queue = osMessageCreate(osMessageQ(uart1_message_queue), NULL);
 	uart2_message_queue = osMessageCreate(osMessageQ(uart2_message_queue), NULL);
 	
@@ -306,10 +308,7 @@ void USART2_IRQHandler (void) {
 	osSignalSet(u2Transmit, 0x01);
 }
 
-void SendText(uint8_t *text, int USART, osMutexId mutex) {
-	//wait for uart mutex to open, and take control of the mutex once it is
-	osMutexWait(mutex, 10000);
-	
+void SendText(char *text, int USART) {
 	uint32_t index = 0;
 	
 	//run until we hit the null character indicating the end of the string
@@ -318,12 +317,9 @@ void SendText(uint8_t *text, int USART, osMutexId mutex) {
 		SendChar(text[index], USART);
 		index++;
 	}
-	
-	//release the uart mutex now that we are done with it
-	osMutexRelease(mutex);
 }
 
-void ClearScreen(int uart, osMutexId mutex)
+void ClearScreen(int uart)
 {
-	SendText("\033[2J", uart, mutex);
+	SendText("\033[2J", uart);
 }

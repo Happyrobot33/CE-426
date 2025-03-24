@@ -43,29 +43,11 @@ main.c(7): warning: In file included from...
     1 | #include <stm32F10x.h>
       |          ^~~~~~~~~~~~~
       |          <stm32f10x.h>
-main.c(84): warning: passing 'char[23]' to parameter of type 'uint8_t *' (aka 'unsigned char *') converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
-   84 |         SendText("[SYSTEM] Hello User 1\n",uart1, uart1_mutex);
-      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~
-main.c(32): note: passing argument to parameter 'txt' here
-   32 | void SendText(uint8_t *txt, int USART, osMutexId mutex);
-      |                        ^
-main.c(90): warning: passing 'char[23]' to parameter of type 'uint8_t *' (aka 'unsigned char *') converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
-   90 |         SendText("[SYSTEM] Hello User 2\n",uart2, uart2_mutex);
-      |                  ^~~~~~~~~~~~~~~~~~~~~~~~~
-main.c(32): note: passing argument to parameter 'txt' here
-   32 | void SendText(uint8_t *txt, int USART, osMutexId mutex);
-      |                        ^
-main.c(328): warning: passing 'char[5]' to parameter of type 'uint8_t *' (aka 'unsigned char *') converts between pointers to integer types where one is of the unique plain 'char' type and the other is not [-Wpointer-sign]
-  328 |         SendText("\033[2J", uart, mutex);
-      |                  ^~~~~~~~~
-main.c(309): note: passing argument to parameter 'text' here
-  309 | void SendText(uint8_t *text, int USART, osMutexId mutex) {
-      |                        ^
-6 warnings generated.
+3 warnings generated.
 compiling main.c...
 linking...
-Program Size: Code=10244 RO-data=580 RW-data=56 ZI-data=8392  
-".\CMSISrtxMutex.axf" - 0 Error(s), 6 Warning(s).
+Program Size: Code=10188 RO-data=572 RW-data=64 ZI-data=10528  
+".\CMSISrtxMutex.axf" - 0 Error(s), 3 Warning(s).
 
 <h2>Software Packages used:</h2>
 
@@ -112,17 +94,17 @@ Package Vendor: Keil
    * Component: ARM::CMSIS:RTOS:Keil RTX@4.82.0
       Include file:  CMSIS/RTOS/RTX/INC/cmsis_os.h
       Source file:   CMSIS/RTOS/RTX/Templates/RTX_Conf_CM.c
-      Source file:   CMSIS/RTOS/RTX/UserCodeTemplates/Mutex.c
+      Source file:   CMSIS/RTOS/RTX/UserCodeTemplates/MailQueue.c
       Source file:   CMSIS/RTOS/RTX/UserCodeTemplates/Semaphore.c
-      Source file:   CMSIS/RTOS/RTX/UserCodeTemplates/Thread.c
-      Source file:   CMSIS/RTOS/RTX/UserCodeTemplates/MsgQueue.c
-      Source file:   CMSIS/RTOS/RTX/SRC/ARM/SVC_Table.s
+      Source file:   CMSIS/RTOS/RTX/UserCodeTemplates/main.c
       Source file:   CMSIS/RTOS/RTX/UserCodeTemplates/Timer.c
+      Source file:   CMSIS/RTOS/RTX/UserCodeTemplates/Mutex.c
+      Source file:   CMSIS/RTOS/RTX/UserCodeTemplates/MsgQueue.c
       Include file:  CMSIS/RTOS/RTX/UserCodeTemplates/osObjects.h
       Library file:  CMSIS/RTOS/RTX/LIB/ARM/RTX_CM3.lib
-      Source file:   CMSIS/RTOS/RTX/UserCodeTemplates/MailQueue.c
       Source file:   CMSIS/RTOS/RTX/UserCodeTemplates/MemPool.c
-      Source file:   CMSIS/RTOS/RTX/UserCodeTemplates/main.c
+      Source file:   CMSIS/RTOS/RTX/UserCodeTemplates/Thread.c
+      Source file:   CMSIS/RTOS/RTX/SRC/ARM/SVC_Table.s
 
    * Component: Keil::Board Support&MCBSTM32E:LED@2.0.0
       Source file:   Boards/Keil/MCBSTM32E/Common/LED_MCBSTM32E.c
@@ -132,10 +114,10 @@ Package Vendor: Keil
       Include file:  RTE_Driver/GPIO_STM32F10x.h
 
    * Component: Keil::Device:Startup@1.0.0
-      Source file:   Device/Source/system_stm32f10x.c
-      Include file:  RTE_Driver/Config/RTE_Device.h
       Source file:   Device/Source/ARM/startup_stm32f10x_md.s
       Source file:   Device/Source/ARM/STM32F1xx_OPT.s
+      Include file:  RTE_Driver/Config/RTE_Device.h
+      Source file:   Device/Source/system_stm32f10x.c
 Build Time Elapsed:  00:00:00
 </pre>
 </body>
